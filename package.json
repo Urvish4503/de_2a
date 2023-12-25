@@ -2,11 +2,21 @@
   "name": "de_project",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:ts": "tsc -w",
+    "start:js": "node --watch .\\dist\\app.js",
+    "start": "concurrently \"npm run start:ts\" \"npm run start:js\"",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "concurrently": "^8.2.2",
+    "express": "^4.18.2",
+    "typescript": "^5.3.3"
+  }
 }
