@@ -16,3 +16,6 @@ coverage
 
 # Visual Studio Code configuration
 .vscode/
+
+# Python virtual environment
+venv
