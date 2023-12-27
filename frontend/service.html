@@ -6,6 +6,8 @@
     <title>Services</title>
     <link rel="stylesheet" href="service.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <style>
         html{
             scroll-behavior: smooth;
@@ -76,15 +78,16 @@
         </div>
     </div>
 
-    <div class="locatorsection">
-        <div class="locatorsec1">
-            <img class="locatorimg" src="images/locatorimg1.png" alt="">
+    <div class="locatorsection" >
+        <div id="locator-sec1" class="locatorsec1" >
+            <img id="imge" class="locatorimg" src="images/locatorimg1.png" alt="">
         </div>
-        <div class="locatorsec2">
+        <div id="locator-sec2" class="locatorsec2" >
             <p class="locatortext">Have something to recycle?</p>
-            <input class="locinput" type="text" placeholder="Enter your Location">
-            <a class="alocbut" href=""><button class="locatorbut">Go to locator</button></a>
+            <input id="pinCode" class="locinput" type="text" placeholder="Enter your Location">
+            <button onclick="goToLocator()" class="locatorbut">Go to locator</button>
         </div>
+        <div id="map"></div>
     </div>
 
     <div class="homepickup">
