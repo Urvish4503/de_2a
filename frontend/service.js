@@ -59,7 +59,7 @@ var map;
     }
 
     var redMarkerIcon = L.icon({
-      iconUrl: 'pointer.png',
+      iconUrl: 'images/pointer.png',
       iconSize: [50, 45],
       iconAnchor: [12, 41],
       popupAnchor: [13, -34],
@@ -73,33 +73,201 @@ var map;
 
 
 
+const droparea = document.getElementById("drop-area");
+const inputfile = document.getElementById("input-file");
+const imageview = document.getElementById("img-view");
 
+inputfile.addEventListener("change", uploadImage);
 
+function uploadImage(){
+  let imgLink=URL.createObjectURL(inputfile.files[0]);
+  imageview.style.backgroundImage = `url(${imgLink})`;
+  imageview.textContent="";
+  imageview.style.border=0;
+  imageview.style.border = '3px solid #000000';
+}
 
-
-
-
-
-
-
-document.getElementById('new-item-form').addEventListener('submit', function (event) {
-    event.preventDefault();
-    const name = document.getElementById('name').value;
-    const description = document.getElementById('description').value;
-    const date = document.getElementById('date').value;
-    const quantity = document.getElementById('quantity').value;
-    const category = document.getElementById('category').value;
-
-    const newRow = document.createElement('tr');
-    newRow.innerHTML = `
-        <td style="max-width: 100px; overflow: hidden; text-overflow: ellipsis;">${name}</td>
-        <td style="max-width: 100px; overflow: hidden; text-overflow: ellipsis;">${description}</td>
-        <td>${date}</td>
-        <td>${quantity}</td>
-        <td>${category}</td>
-    `;
-
-    const tableBody = document.getElementById('table-body');
-    tableBody.style.width = '100%';
-    tableBody.appendChild(newRow);
+droparea.addEventListener("dragover", function(e){
+  e.preventDefault();
 });
+
+droparea.addEventListener("drop", function(e){
+  e.preventDefault();
+  inputfile.files=e.dataTransfer.files;
+  uploadImage();
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    document.querySelectorAll('.truck-button').forEach(button => {
+      button.addEventListener('click', e => {
+  
+          e.preventDefault();
+          
+          let box = button.querySelector('.box'),
+              truck = button.querySelector('.truck');
+          
+          if(!button.classList.contains('done')) {
+              
+              if(!button.classList.contains('animation')) {
+  
+                  button.classList.add('animation');
+  
+                  gsap.to(button, {
+                      '--box-s': 1,
+                      '--box-o': 1,
+                      duration: .3,
+                      delay: .5
+                  });
+  
+                  gsap.to(box, {
+                      x: 0,
+                      duration: .4,
+                      delay: .7
+                  });
+  
+                  gsap.to(button, {
+                      '--hx': -5,
+                      '--bx': 50,
+                      duration: .18,
+                      delay: .92
+                  });
+  
+                  gsap.to(box, {
+                      y: 0,
+                      duration: .1,
+                      delay: 1.15
+                  });
+  
+                  gsap.set(button, {
+                      '--truck-y': 0,
+                      '--truck-y-n': -26
+                  });
+  
+                  gsap.to(button, {
+                      '--truck-y': 0,
+                      '--truck-y-n': -25,
+                      duration: .2,
+                      delay: 1.25,
+                      onComplete() {
+                          gsap.timeline({
+                              onComplete() {
+                                  button.classList.add('done');
+                              }
+                          }).to(truck, {
+                              x: 0,
+                              duration: .4
+                          }).to(truck, {
+                              x: 40,
+                              duration: 1
+                          }).to(truck, {
+                              x: 20,
+                              duration: .6
+                          }).to(truck, {
+                              x: 400,
+                              duration: .4
+                          });
+                          gsap.to(button, {
+                              '--progress': 1,
+                              duration: 2.4,
+                              ease: "power2.in"
+                          });
+                      }
+                  });
+                  
+              }
+              
+          } else {
+              button.classList.remove('animation', 'done');
+              gsap.set(truck, {
+                  x: 4
+              });
+              gsap.set(button, {
+                  '--progress': 0,
+                  '--hx': 0,
+                  '--bx': 0,
+                  '--box-s': .5,
+                  '--box-o': 0,
+                  '--truck-y': 0,
+                  '--truck-y-n': -26
+              });
+              gsap.set(box, {
+                  x: -24,
+                  y: -6
+              });
+          }
+  
+      });
+  });
+
+
+
+
+
+
+document.getElementById('pickupButton').addEventListener('click', function () {
+  const fileInput = document.getElementById('input-file');
+  const quantity = document.getElementById('quantity').value;
+  const description = document.getElementById('description').value;
+  const date = document.getElementById('date').value;
+
+  // Ensure a file is selected
+  if (fileInput.files.length > 0) {
+      const selectedFile = fileInput.files[0];
+      const fileName = selectedFile.name;
+      const imageUrl = URL.createObjectURL(selectedFile);
+
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `
+          <td style="max-width: 100px; overflow: hidden;">
+              <img src="${imageUrl}" alt="${fileName}" style="max-width: 100%; height: auto; border: solid; border-width: 1px">
+          </td>
+          <td style="max-width: 40px; overflow: hidden; text-overflow: ellipsis;">${quantity}Kg</td>
+          <td style="max-width: 40px; overflow: hidden; text-overflow: ellipsis;">${description}</td>
+          <td>${date}</td>
+      `;
+
+      const tableBody = document.getElementById('table-body');
+      tableBody.appendChild(newRow);
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+

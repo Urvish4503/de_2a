@@ -10,10 +10,13 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    /* filter: blur(10px); */
 }
 
 .login-card {
-    background: white;
+    background-color: transparent;
+    /* filter: blur(10px); */
+    backdrop-filter: blur(15px);
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);

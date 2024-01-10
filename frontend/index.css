@@ -221,7 +221,16 @@
   border-radius: 45px;
   padding-right: 1.5rem;
   cursor: pointer;
+  transition: 0.15s;
+
 }
+
+.home-login:hover{
+  box-shadow: 0px 0px 5px rgba(217, 217, 217, 0.7);
+  color: #739e7b;
+}
+
+
 .home-register {
   color: #739e7b;
   transition: 0.3s;
